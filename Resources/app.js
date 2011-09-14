@@ -84,7 +84,7 @@ var photoButton = Titanium.UI.createButton({
 	title : 'Select Photo',
 	height : 50,
 	top : 80,
-	width: '90%'
+	width : '90%'
 });
 
 var image;
@@ -135,20 +135,21 @@ win2.addEventListener('focus', function() {
 		Ti.Geolocation.purpose = "User Current location,"
 
 		Titanium.Geolocation.getCurrentPosition(function(e) {
-			// if(!e.success || e.error) {
-			// alert("Can't find current location");
-			// } else {
-			// var longitude = e.coords.longitude;
-			var longitude = '-117.2403416';
-			// var latitude = e.coords.latitude;
-			var latitude = '33.1287888';
-
-			Titanium.Geolocation.reverseGeocoder(latitude, longitude, function(e) {
-				address = e.places[0].address;
-				locationData.text = address;
+			if(!e.success || e.error) {
+				alert("Can't find current location");
 				spinner.hide();
-			});
-			// }
+			} else {
+				var longitude = e.coords.longitude;
+				// var longitude = '-117.2403416';
+				var latitude = e.coords.latitude;
+				// var latitude = '33.1287888';
+
+				Titanium.Geolocation.reverseGeocoder(latitude, longitude, function(e) {
+					address = e.places[0].address;
+					locationData.text = address;
+					spinner.hide();
+				});
+			}
 		});
 	} else {
 		Ti.API.warn('Geolocation turned off.');
